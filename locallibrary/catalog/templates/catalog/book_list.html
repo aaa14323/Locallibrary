@@ -1,0 +1,54 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <br>
+    <table class="table">
+      <thead>
+        <tr>
+          <th><h1>Lista de libros</h1></th>
+          <th>
+            {% if user.is_staff %}
+              <div class="d-grid gap-2">
+                <a href="{% url 'book-create' %}" class="btn btn-primary">Agregar libro</a>
+              </div>
+            {% endif %}
+          </th>
+        </tr>
+      </thead>
+
+    {% if book_list %}
+      <br>
+      <table class="table">
+        <thead>
+          <tr class="table-primary">
+            <th>Titulo</th>
+            <th>Autor</th>
+            <th>Accion</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for book in book_list %}
+          <tr>
+            <tr>
+              <td>{{ book.title }}</td>
+              <td>({{book.author}})</td>
+              <td>
+                {% if user.is_authenticated %}
+                  <a href="{{ book.get_absolute_url }}" class="btn btn-primary">Ver</a>
+                  {% if user.is_staff %}
+                    <a href="{% url 'book-update' book.id %}" class="btn btn-info">Editar</a>
+                    <a href="{% url 'book-delete' book.id %}" class="btn btn-danger">Eliminar</a>
+                  {% endif %}
+                {% endif %}
+              </td>
+            </tr>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    {% else %}
+      <p>No hay libros n la libreria.</p>
+    {% endif %}       
+{% endblock %}
+

@@ -1,0 +1,62 @@
+{% extends "base_generic.html" %}
+{% block content %}
+    <br>
+    <div class="container">
+        <center><h1>Locallibrary</h1></center>
+        {% if form.errors %}
+        <p style="color: rgb(223, 18, 18);">Nuestro nombre de usuario y contraseña no coincidían. Inténtalo de nuevo.</p>
+        {% endif %}
+
+        {% if next %}
+        {% if user.is_authenticated %}
+        <p>Tu cuenta no tiene acceso a esta página.
+            Por favor inicia sesion para ver la página.</p>
+        {% else %}
+        <p>Inicia sesion para ver esta página.</p>
+        {% endif %}
+        {% endif %}
+        <br>
+    </div>
+
+    <div class="container py-3 h-0">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col col-xl-10">
+                <div class="card" style="border-radius: 1rem;">
+                    <div class="row g-0">
+                        <div class="col-md-6 col-lg-5 d-none d-md-block">
+                            <br>
+                            <img src="https://cdn-icons-png.flaticon.com/512/3532/3532091.png" width="300" height="300" alt="login form" class="img-fluid"
+                                style="border-radius: 1rem 0 0 1rem;" />
+                        </div>
+                        <div class="col-md-6 col-lg-7 d-flex align-items-center">
+                            <div class="card-body p-4 p-lg-5 text-black">
+                                <h2>Iniciar sesion</h2>
+                                <br>
+                                <form method="post" action="{% url 'login' %}">
+                                    {% csrf_token %}
+                                    <table>
+                                        <tr>
+                                            <td>{{ form.username.label_tag }}</td>
+                                            <td>{{ form.username }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>{{ form.password.label_tag }}</td>
+                                            <td>{{ form.password }}</td>
+                                        </tr>
+                                    </table>
+                                    <br>
+                                    <input type="submit" class="btn btn-primary" value="Ingresar">
+                                    <input type="hidden" name="next" value="{{ next }}">
+                                </form>
+                                <br>
+                                {# Assumes you setup the password_reset view in your URLconf #}
+                                <p><a href="{% url 'password_reset' %}">Perdiste tu contraseña?</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

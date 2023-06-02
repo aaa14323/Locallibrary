@@ -1,0 +1,33 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <br>
+    <h1>Local Library Home</h1>
+
+    <p>Bienvenido a <em>LocalLibrary</em>, un sitio web de Django muy básico desarrollado como un <a href="https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/Tutorial_local_library_website">ejemplo de tutorial</a> en Mozilla Developer Red.</p>
+    <p>El tutorial demuestra cómo crear un sitio web y una aplicación esqueléticos de Django, definir asignaciones de URL, vistas (incluidas vistas de lista genérica y de detalles), modelos y plantillas.</p>
+
+
+    <h2>UML Models</h2>
+    <p>An UML diagram of the site's Django model structure is shown below. </p>
+
+    <div>
+    {% load static %}
+    <img src="{% static 'images/local_library_model_uml.png' %}" alt="My image" width="600px">
+    </div>  
+
+
+    <h2>Dynamic content</h2>
+
+    <p>La biblioteca tiene los siguientes recuentos de registros:</p>
+    <ul>
+    <li><strong>Libros:</strong> {{ num_books }}</li>
+    <li><strong>Copias:</strong> {{ num_instances }}</li>
+    <li><strong>Copias disponibles:</strong> {{ num_instances_available }}</li>
+    <li><strong>Autores:</strong> {{ num_authors }}</li>
+    </ul>
+
+
+    <p>Has visitado esta página {{ num_visits }} veces{{ num_visits|pluralize }}.</p>
+
+{% endblock %}
